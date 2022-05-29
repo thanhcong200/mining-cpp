@@ -48,9 +48,9 @@ int num_classes = 10;
 
 int main(){
     Model model = createModel(num_feature, num_classes);
-    model.LoadModel("./" + dataset + "/model_50.bin");
-    Matrix mat_test_data = load_data("../data/" + dataset + "/test_data.txt", num_test, num_feature);
-    Matrix mat_test_label = load_data("../data/" + dataset + "/test_label.txt", num_test, num_classes);
+    model.LoadModel("50.bin");
+    Matrix mat_test_data = load_data("./data/" + dataset + "/test_data.txt", num_test, num_feature);
+    Matrix mat_test_label = load_data("./data/" + dataset + "/test_label.txt", num_test, num_classes);
 
     float acc = model.Eval(mat_test_data, mat_test_label, dataset);
     print(acc);

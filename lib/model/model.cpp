@@ -164,7 +164,6 @@ float Model::Eval(Matrix val_dataset, Matrix val_label, std::string dataset){
 float Model::Valid(Matrix val_dataset, Matrix val_label, loss::CategoricalCrossEntropy criterion){
     float loss = 0;
     for (int i=0; i<val_dataset.m_Rows; i++){
-        print(i);
         Matrix input = Matrix(val_dataset.GetRow(i));
         Matrix label = Matrix(val_label.GetRow(i));
 

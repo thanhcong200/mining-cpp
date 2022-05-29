@@ -27,7 +27,6 @@ Model createModel(unsigned int input_dims, unsigned int num_classes){
 Matrix load_data(std::string data_path, int rows, int cols){
     std::ifstream inFile;
     inFile.open(data_path, std::ios::in);
-    std::cout << data_path;
     if (!inFile) {
         std::cerr << "Unable to open file datafile.txt";
         exit(1);   // call system to stop
@@ -52,7 +51,7 @@ int num_val = 500;
 int num_feature = 1024;
 int num_classes = 10;
 int EPOCHS = 50;
-float LR = 0.01;
+float LR = 0.001;
 int BATCH_SIZE = 64;
 
 int main(){
@@ -68,17 +67,16 @@ int main(){
         index.push_back(i);
     }
     std::ofstream outFile;
-    outFile.open("./" + dataset + "/loss.txt", std::ios_base::out);
+    outFile.open("loss.txt", std::ios_base::out);
     std::ofstream logFile;
-    logFile.open("./" + dataset +"/log.txt", std::ios_base::out);
+    logFile.open("log.txt", std::ios_base::out);
     for (int e=1; e<=EPOCHS; e++){
         std::random_shuffle ( index.begin(), index.end() );
-
         if (e % 15 == 0){
             LR /= 10;
         }
 
-        std::cout<<"EPOCH: "<<e<<" <<<<<<<<<"<<std::endl;
+        std::cout<<"EPOCH: "<<e<<": ";
         std::cout << "[";
         outFile << "EPOCH: "<<e<<" <<<<<<<<<" <<std::endl;
         logFile << "EPOCH: "<<e<<" <<<<<<<<<" <<std::endl;
@@ -113,7 +111,7 @@ int main(){
         std::cout << "]\n";
         float valid_loss = model.Valid(mat_valid_data, mat_valid_label, criterion);
         logFile << total/c <<" "<<valid_loss<<std::endl;
-        model.SaveMode("./" + dataset +"/model_" + std::to_string(e) + ".bin");
+        model.SaveMode(std::to_string(e) + ".bin");
     }
     outFile.close();
     logFile.close();
